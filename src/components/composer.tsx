@@ -69,7 +69,7 @@ export function CreatePostForm({
   const [urlInput, setUrlInput] = useState("");
   const [busy, setBusy] = useState(false);
 
-  const toggleMedia = (src: string) =>
+  const fileInputRef = useRef<HTMLInputElement>(null);`n  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {`n    const files = e.target.files;`n    if (!files) return;`n    for (const file of Array.from(files)) {`n      const fd = new FormData();`n      fd.append("file", file);`n      const res = await fetch("/api/upload", { method: "POST", body: fd });`n      const data = await res.json();`n      toggleMedia(data.secure_url);`n    }`n  };`n  const toggleMedia = (src: string) =>
     setMedia((m) =>
       m.includes(src) ? m.filter((x) => x !== src) : [...m, src].slice(0, 10),
     );
@@ -274,3 +274,4 @@ export function ComposerHost() {
     </AnimatePresence>
   );
 }
+
