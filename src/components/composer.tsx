@@ -151,7 +151,7 @@ const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
             Add photos ({media.length}/10)
           </p>
           <div className="grid grid-cols-4 gap-2 sm:grid-cols-6">
-            {MEDIA_CHOICES.map((src) => (
+            <input ref={fileInputRef} type="file" accept="image/" multiple className="hidden" onChange={handleFileUpload} />{MEDIA_CHOICES.map((src) => (
               <button
                 key={src}
                 type="button"
@@ -285,4 +285,5 @@ export function ComposerHost() {
     </AnimatePresence>
   );
 }
+
 
