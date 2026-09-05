@@ -68,7 +68,18 @@ export function CreatePostForm({
   const [media, setMedia] = useState<string[]>([]);
   const [urlInput, setUrlInput] = useState("");
   const [busy, setBusy] = useState(false);
-
+const fileInputRef = useRef<HTMLInputElement>(null);
+const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const files = e.target.files;
+  if (!files) return;
+  for (const file of Array.from(files)) {
+    const fd = new FormData();
+    fd.append("file", file);
+    const res = await fetch("/api/upload", { method: "POST", body: fd });
+    const data = await res.json();
+    toggleMedia(data.secure_url);
+  }
+};
   const toggleMedia = (src: string) =>
     setMedia((m) =>
       m.includes(src) ? m.filter((x) => x !== src) : [...m, src].slice(0, 10),
@@ -144,7 +155,7 @@ export function CreatePostForm({
               <button
                 key={src}
                 type="button"
-                onClick={() => toggleMedia(src)}
+                onClick={() => fileInputRef.current?.click()}
                 className={cn(
                   "relative aspect-square overflow-hidden rounded-lg ring-2 transition",
                   media.includes(src)
