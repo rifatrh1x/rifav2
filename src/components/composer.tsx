@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { X, ImagePlus, MapPin, Check, Link2 } from "lucide-react";
@@ -285,3 +285,4 @@ export function ComposerHost() {
     </AnimatePresence>
   );
 }
+
