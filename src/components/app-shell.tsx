@@ -38,7 +38,7 @@ export function Logo({ size = "md" }: { size?: "sm" | "md" }) {
     alt="Rifav Logo"
     className={cn(
       "rounded-2xl object-cover",
-      size === "md" ? "h-12 w-12" : "h-9 w-9"
+      size === "md" ? "h-16 w-16" : "h-12 w-12"
     )}
   />
   <span
