@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { X, ImagePlus, MapPin, Check, Link2 } from "lucide-react";
@@ -68,7 +68,18 @@ export function CreatePostForm({
   const [media, setMedia] = useState<string[]>([]);
   const [urlInput, setUrlInput] = useState("");
   const [busy, setBusy] = useState(false);
-
+const fileInputRef = useRef<HTMLInputElement>(null);
+const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const files = e.target.files;
+  if (!files) return;
+  for (const file of Array.from(files)) {
+    const fd = new FormData();
+    fd.append("file", file);
+    const res = await fetch("/api/upload", { method: "POST", body: fd });
+    const data = await res.json();
+    toggleMedia(data.secure_url);
+  }
+};
   const toggleMedia = (src: string) =>
     setMedia((m) =>
       m.includes(src) ? m.filter((x) => x !== src) : [...m, src].slice(0, 10),
@@ -140,11 +151,11 @@ export function CreatePostForm({
             Add photos ({media.length}/10)
           </p>
           <div className="grid grid-cols-4 gap-2 sm:grid-cols-6">
-            {MEDIA_CHOICES.map((src) => (
+            <input ref={fileInputRef} type="file" accept="image/" multiple className="hidden" onChange={handleFileUpload} />{MEDIA_CHOICES.map((src) => (
               <button
                 key={src}
                 type="button"
-                onClick={() => toggleMedia(src)}
+                onClick={() => fileInputRef.current?.click()}
                 className={cn(
                   "relative aspect-square overflow-hidden rounded-lg ring-2 transition",
                   media.includes(src)
@@ -274,3 +285,5 @@ export function ComposerHost() {
     </AnimatePresence>
   );
 }
+
+
