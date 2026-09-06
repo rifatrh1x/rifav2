@@ -44,7 +44,7 @@ export function Logo({ size = "md" }: { size?: "sm" | "md" }) {
   <span
     className={cn(
       "bg-gradient-to-r from-violet-600 to-fuchsia-500 bg-clip-text font-extrabold tracking-tight text-transparent",
-      size === "md" ? "text-2xl" : "text-xl"
+      size === "md" ? "text-3xl" : "text-2xl"
     )}
   >
     Rifav
