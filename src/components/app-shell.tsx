@@ -32,24 +32,24 @@ export type ShellUser = {
 
 export function Logo({ size = "md" }: { size?: "sm" | "md" }) {
   return (
-    <Link href="/" className="flex items-center gap-2">
-      <span
-        className={cn(
-          "flex items-center justify-center rounded-2xl bg-gradient-to-br from-violet-600 via-fuchsia-500 to-pink-500 font-black text-white shadow-lg shadow-violet-600/30",
-          size === "md" ? "h-9 w-9 text-xl" : "h-7 w-7 text-base",
-        )}
-      >
-        R
-      </span>
-      <span
-        className={cn(
-          "bg-gradient-to-r from-violet-600 to-fuchsia-500 bg-clip-text font-extrabold tracking-tight text-transparent",
-          size === "md" ? "text-2xl" : "text-xl",
-        )}
-      >
-        Rifav
-      </span>
-    </Link>
+   <Link href="/" className="flex items-center gap-2">
+  <img
+    src="/logo.png"
+    alt="Rifav Logo"
+    className={cn(
+      "rounded-2xl object-cover",
+      size === "md" ? "h-9 w-9" : "h-7 w-7"
+    )}
+  />
+  <span
+    className={cn(
+      "bg-gradient-to-r from-violet-600 to-fuchsia-500 bg-clip-text font-extrabold tracking-tight text-transparent",
+      size === "md" ? "text-2xl" : "text-xl"
+    )}
+  >
+    Rifav
+  </span>
+</Link>
   );
 }
 
